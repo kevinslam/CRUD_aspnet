@@ -8,7 +8,7 @@
     <div class="card-header">
         <div class="row">
             <div class="col-sm-6">
-                <h2 class="text-info">Lista de cursos</h2>
+                <h2 class="text-info">Lista de profesores</h2>
             </div>
             <div class="col-sm-6">
                 <a asp-page="Crear" class="btn btn-primary">Crear nuevo profesor</a>
@@ -40,7 +40,7 @@
                         <td>@Html.DisplayFor(m => item.Fecha_nac)</td>
                         <td>
                             <a asp-route-id="@item.idProf" asp-page="Editar" class="btn btn-success btn-sm">Editar</a>
-                            <button asp-page-handler="Borrar" asp-route-id="@item.idProf" onclick="return confirm('Está seguro de querer borrar el curso?')" class="btn btn-danger btn-sm">Borrar</button>
+                            <a asp-page="Borrar" asp-route-id="@item.idProf" class="btn btn-danger btn-sm">Borrar</a>
                         </td>
                     </tr>
                 }

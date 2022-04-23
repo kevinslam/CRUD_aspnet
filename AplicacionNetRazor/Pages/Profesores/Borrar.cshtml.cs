@@ -4,35 +4,35 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
-namespace AplicacionNetRazor.Pages.Cursos
+namespace AplicacionNetRazor.Pages.Profesores
 {
-    public class IndexModel : PageModel
+    public class BorrarModel : PageModel
     {
         private readonly AplicacionDBContext _contexto;
-
-        public IndexModel(AplicacionDBContext contexto) 
+        public BorrarModel(AplicacionDBContext contexto)
         {
             _contexto = contexto;
         }
 
-        public IEnumerable<Curso> Cursos { get; set; }
-        public async Task OnGet()
+        [BindProperty]
+        public Profesor Profesor { get; set; }
+        public async Task OnGet(int id)
         {
-            Cursos = await _contexto.Curso.ToListAsync();
+            Profesor = await _contexto.Profesor.FindAsync(id);
         }
 
-        public async Task<IActionResult> OnPostBorrar(int id)
+        public async Task<IActionResult> OnPost()
         {
             if (ModelState.IsValid)
             {
-                var CursoBorrar = await _contexto.Curso.FindAsync(id);
+                var ProfesorBorrar = await _contexto.Profesor.FindAsync(Profesor.idProf);
 
-                if (CursoBorrar == null)
+                if (ProfesorBorrar == null)
                 {
                     return NotFound();
                 }
 
-                _contexto.Curso.Remove(CursoBorrar);
+                _contexto.Profesor.Remove(ProfesorBorrar);
                 await _contexto.SaveChangesAsync();
                 return RedirectToPage("Index");
             }
