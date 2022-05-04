@@ -16,6 +16,9 @@ namespace AplicacionNetRazor.Pages.Cursos
 
         [BindProperty]
         public Curso Curso { get; set; }
+
+        [TempData]
+        public string Mensaje { get; set; }
         public async Task OnGet(int id)
         {
             Curso = await _contexto.Curso.FindAsync(id);
@@ -32,6 +35,7 @@ namespace AplicacionNetRazor.Pages.Cursos
                 CursoDesdeBD.Precio = Curso.Precio;
 
                 _contexto.SaveChangesAsync();
+                Mensaje = "Curso actualizado exitosamente";
                 return RedirectToPage("Index"); 
             }
 

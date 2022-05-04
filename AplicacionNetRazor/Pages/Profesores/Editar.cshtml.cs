@@ -15,6 +15,9 @@ namespace AplicacionNetRazor.Pages.Profesores
 
         [BindProperty]
         public Profesor Profesor { get; set; }
+
+        [TempData]
+        public string Mensaje { get; set; }
         public async Task OnGet(int id)
         {
             Profesor = await _contexto.Profesor.FindAsync(id);
@@ -33,6 +36,7 @@ namespace AplicacionNetRazor.Pages.Profesores
                 ProfesorDesdeBD.Fecha_nac = Profesor.Fecha_nac;
 
                 _contexto.SaveChangesAsync();
+                Mensaje = "Profesor actualizado exitosamente";
                 return RedirectToPage("Index");
             }
 

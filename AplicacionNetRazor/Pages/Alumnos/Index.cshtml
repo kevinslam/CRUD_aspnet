@@ -4,6 +4,14 @@
     ViewData["Title"] = "Listado de alumnos";
 }
 
+@if (Model.Mensaje != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      @Model.Mensaje
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
 <div class="card">
     <div class="card-header">
         <div class="row">
@@ -33,6 +41,9 @@
                 </tr>
                 @foreach (var item in Model.Alumnos)
                 {
+                    if ( item.Eliminado == false )
+                    {
+                        
                     <tr>
                         <td>@Html.DisplayFor(m => item.IdAlumno)</td>
                         <td>@Html.DisplayFor(m => item.Nombre)</td>
@@ -43,10 +54,12 @@
                         <td>@Html.DisplayFor(m => item.Cant_cursos)</td>
                         <td>@Html.DisplayFor(m => item.Fecha_egr)</td>
                         <td>
-                            <a asp-route-id="@item.IdAlumno" asp-page="Editar" class="btn btn-success btn-sm">Editar</a>
-                            <button asp-page-handler="Borrar" asp-route-id="@item.IdAlumno" onclick="return confirm('Está seguro de querer borrar el curso?')" class="btn btn-danger btn-sm">Borrar</button>
+                            <a asp-route-id="@item.IdAlumno" asp-page="Editar" class="btn btn-success btn-sm btn-primary">Editar</a>
+                            <a asp-route-id="@item.IdAlumno" asp-page="Borrar" class="btn btn-danger btn-sm btn-primary">Borrar</a>
                         </td>
                     </tr>
+
+                    }
                 }
             </table>
         }

@@ -17,6 +17,9 @@ namespace AplicacionNetRazor.Pages.Cursos
         [BindProperty]
         public Curso Curso { get; set; }
 
+        [TempData]
+        public string Mensaje { get; set; }
+
         public async Task<IActionResult> OnPost()
         {
             if (!ModelState.IsValid)
@@ -28,6 +31,7 @@ namespace AplicacionNetRazor.Pages.Cursos
 
             _contexto.Add(Curso);
             await _contexto.SaveChangesAsync();
+            Mensaje = "Curso creado exitosamente";
             return RedirectToPage("Index");
         }
         public void OnGet()

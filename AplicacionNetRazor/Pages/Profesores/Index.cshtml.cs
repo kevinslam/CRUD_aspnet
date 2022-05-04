@@ -16,6 +16,9 @@ namespace AplicacionNetRazor.Pages.Profesores
         }
 
         public IEnumerable<Profesor> Profesores { get; set; }
+
+        [TempData]
+        public string Mensaje { get; set; }
         public async Task OnGet()
         {
             Profesores = await _contexto.Profesor.ToListAsync();

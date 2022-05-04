@@ -16,6 +16,9 @@ namespace AplicacionNetRazor.Pages.Cursos
         }
 
         public IEnumerable<Curso> Cursos { get; set; }
+
+        [TempData]
+        public string Mensaje { get; set; }
         public async Task OnGet()
         {
             Cursos = await _contexto.Curso.ToListAsync();
@@ -34,6 +37,7 @@ namespace AplicacionNetRazor.Pages.Cursos
 
                 _contexto.Curso.Remove(CursoBorrar);
                 await _contexto.SaveChangesAsync();
+                Mensaje = "Curso eliminado exitosamente";
                 return RedirectToPage("Index");
             }
 

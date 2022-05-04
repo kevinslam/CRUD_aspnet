@@ -1,10 +1,8 @@
 using AplicacionNetRazor.Datos;
-using AplicacionNetRazor.Modelos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 
-namespace AplicacionNetRazor.Pages.Profesores
+namespace AplicacionNetRazor.Pages.Alumnos
 {
     public class BorrarModel : PageModel
     {
@@ -15,29 +13,30 @@ namespace AplicacionNetRazor.Pages.Profesores
         }
 
         [BindProperty]
-        public Profesor Profesor { get; set; }
+        public Modelos.Alumno Alumno { get; set; }
 
         [TempData]
         public string Mensaje { get; set; }
         public async Task OnGet(int id)
         {
-            Profesor = await _contexto.Profesor.FindAsync(id);
+            Alumno = await _contexto.Alumno.FindAsync(id);
         }
 
         public async Task<IActionResult> OnPost()
         {
             if (ModelState.IsValid)
             {
-                var ProfesorBorrar = await _contexto.Profesor.FindAsync(Profesor.idProf);
+                var AlumnoBorrar = await _contexto.Alumno.FindAsync(Alumno.IdAlumno);
 
-                if (ProfesorBorrar == null)
+                if (AlumnoBorrar == null)
                 {
                     return NotFound();
                 }
 
-                _contexto.Profesor.Remove(ProfesorBorrar);
-                await _contexto.SaveChangesAsync();
-                Mensaje = "Profesor eliminado exitosamente";
+                AlumnoBorrar.Eliminado = true;
+
+                _contexto.SaveChangesAsync();
+                Mensaje = "Alumno eliminado correctamente";
                 return RedirectToPage("Index");
             }
 
@@ -46,3 +45,4 @@ namespace AplicacionNetRazor.Pages.Profesores
         }
     }
 }
+

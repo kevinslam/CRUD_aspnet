@@ -14,6 +14,9 @@ namespace AplicacionNetRazor.Pages.Alumnos
 
         [BindProperty]
         public Modelos.Alumno Alumno { get; set; }
+
+        [TempData]
+        public string Mensaje { get; set; }
         public async Task OnGet(int id)
         {
             Alumno = await _contexto.Alumno.FindAsync(id);
@@ -34,6 +37,7 @@ namespace AplicacionNetRazor.Pages.Alumnos
                 AlumnoDesdeBD.Fecha_egr = Alumno.Fecha_egr;
 
                 _contexto.SaveChangesAsync();
+                Mensaje = "Alumno actualizado exitosamente";
                 return RedirectToPage("Index");
             }
 
